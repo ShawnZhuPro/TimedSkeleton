@@ -30,7 +30,9 @@ public class Robot extends TimedRobot {
   private Joystick joy1 = new Joystick(0);
 
   // Timer
-  private double startTime;
+  Timer timer;
+ 
+
 
   @Override
   public void robotInit() {
@@ -55,6 +57,8 @@ public class Robot extends TimedRobot {
     leftDriveTalon.setSelectedSensorPosition(0,0,10);
     rightDriveTalon.setSelectedSensorPosition(0,0,10);
 
+    timer = new Timer();
+
   }
 
   @Override
@@ -63,7 +67,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    startTime = Timer.getFPGATimestamp();
+    timer.start();
+    timer.reset();
 
   }
 
@@ -71,21 +76,10 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     /**
-     * Gets the time (in seconds)
-     * This starts the timer right when the robot is on, but we 
-     *   want it to get time when autonomous mode starts, so we 
-     *   have to store the time in a global variable, "startTime"
-     * After we store the time in this variable, we can now subtract
-     *   the curernt time by the start time to find the elapsed time
-     *   since autonomous mode started
-     */
-    double time = Timer.getFPGATimestamp();
-
-    /**
      * For the first 3 seconds of auto, the robot drives forward
      *    at 50% power and stops after 3 seconds
      */
-    if(time - startTime < 3){
+    if(timer.get() < 3){
       leftDriveTalon.set(ControlMode.PercentOutput, 0.5);
       rightDriveTalon.set(ControlMode.PercentOutput, 0.5);
     } else {
