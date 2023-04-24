@@ -31,11 +31,10 @@ public class Robot extends TimedRobot {
 
   // Timer
   Timer timer;
- 
-
 
   @Override
   public void robotInit() {
+    // Called once when the robot starts
 
     // Inverted settings
     leftDriveTalon.setInverted(false);
@@ -62,10 +61,14 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    // Called repeatedly every 0.02s
+
+  }
 
   @Override
   public void autonomousInit() {
+    // Called once when autonomous starts
 
     timer.start();
     timer.reset();
@@ -74,6 +77,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    // Called repeatedly every 0.02s
 
     /**
      * For the first 3 seconds of auto, the robot drives forward
@@ -91,23 +95,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    // Called once when teleop Starts
 
   }
 
   @Override
   public void teleopPeriodic() {
-
-    /** 
-     * For this axis, up is negative and down is positive
-     * The speed is slowed down to 60% and the turn is slowed down
-     *   to 30% for better controllability
-     */
-    double speed = -joy1.getRawAxis(1) * 0.6;
-    double turn = joy1.getRawAxis(4) * 0.3;
+    // Called repeatedly every 0.02s
+    
+    double speed = joy1.getRawAxis(0);
+    double turn = joy1.getRawAxis(1);
 
     /**
      * Based on the desired speed and turn, we have to calculate the 
-     *   power output to the left and right sides of the chassis
+     *    power output to the left and right sides of the chassis
      */
     double leftPower = speed + turn;
     double rightPower = speed - turn;
