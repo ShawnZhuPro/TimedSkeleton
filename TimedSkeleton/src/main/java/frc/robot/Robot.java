@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // Called repeatedly every 0.02s
     
+    // Arcade Drive
     double speed = joy1.getRawAxis(0);
     double turn = joy1.getRawAxis(1);
 
